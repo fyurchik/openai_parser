@@ -21,6 +21,7 @@ GEM
     bigdecimal (3.1.6)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
+    dotenv (2.8.1)
     drb (2.2.0)
       ruby2_keywords
     httparty (0.21.0)
@@ -46,6 +47,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  dotenv
   httparty
   nokogiri
   pg

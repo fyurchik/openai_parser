@@ -12,9 +12,9 @@ class DataBase
     ActiveRecord::Base.establish_connection(
       adapter: 'postgresql',
       host: 'localhost',
-      username: 'yuraf',
-      password: 'yura12',
-      database: 'new_database'
+      username: ENV['DATABASE_USERNAME'] ,
+      password: ENV['DATABASE_PASSWORD'],
+      database: ENV['DATABASE']
     )
   end
 end
