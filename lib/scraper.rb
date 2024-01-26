@@ -1,5 +1,6 @@
 require 'httparty'
 require 'nokogiri'
+require_relative '../config'
 
 class Scraper
  
@@ -10,7 +11,7 @@ class Scraper
   private
 
   def self.scrape
-    start_url = 'https://openai.com/careers/search'
+    start_url = URLS::START_URL
     response = HTTParty.get(start_url)
     doc = Nokogiri::HTML(response.body)
   
@@ -18,7 +19,7 @@ class Scraper
     all_hrefs.compact!
     
     all_hrefs.each do |href|
-      new_url = 'https://openai.com' + href
+      new_url = URLS::BASE_URL + href
       response = HTTParty.get(new_url)
       doc = Nokogiri::HTML(response.body)
   
