@@ -9,7 +9,7 @@ require_relative '../lib/models/vacancy'
 
 describe Scraper do
   describe '.scrape' do
-    let(:site_html) { File.read('./vacancy_page.html') }
+    let(:site_html) { File.read('./spec/fixtures/vacancy_page.html') }
     let(:saved_link) { 'https://boards.greenhouse.io/openai/jobs/5059976004#app' }
 
     before do
