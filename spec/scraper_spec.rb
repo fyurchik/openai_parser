@@ -14,20 +14,27 @@ describe Scraper do
 
     before do
       allow(HTTParty).to receive(:get).and_return(double(body: site_html))
-    end
-
-    it 'should parse valid info about 1 vacancy' do
+      
       DataBase.connect
 
       unless ActiveRecord::Base.connection.table_exists?('vacancies')
         CreateVacancies.new.change
       end
-      
-      Scraper.call
 
-      vacancy = Vacancy.first
+      Scraper.call
+    end
+
+    let(:vacancy) { Vacancy.first }
+
+    it 'should parse valid title about 1 vacancy' do
       expect(vacancy.title).to eq('Account Associate')
+    end
+
+    it 'should parse valid location about 1 vacancy' do
       expect(vacancy.location).to eq('San Francisco, California, United States — Go To Market')
+    end
+
+    it 'should parse valid URL about 1 vacancy' do
       expect(vacancy.url).to eq(saved_link)
     end
   end
