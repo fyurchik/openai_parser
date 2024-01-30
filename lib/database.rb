@@ -16,5 +16,7 @@ class DataBase
       password: ENV['DATABASE_PASSWORD'],
       database: ENV['DATABASE']
     )
+  rescue ActiveRecord::ConnectionNotEstablished => e
+    puts "Failed to establish a database connection: #{e.message}"
   end
 end
