@@ -1,8 +1,8 @@
 require 'httparty'
 require 'nokogiri'
 require_relative '../config'
-require_relative 'models/vacancy'
 require_relative 'database'
+require_relative 'vacancy_database_handler'
 
 class Scraper
   def self.call
@@ -12,7 +12,10 @@ class Scraper
       CreateVacancies.new.change
     end
 
-    save_in_db(scrape)
+    scraped_data = scrape
+    
+    vacancyDbHandler = VacancyDatabaseHandler.new(scraped_data)
+    vacancyDbHandler.save_in_db
   end
 
   private
@@ -41,11 +44,5 @@ class Scraper
     end
 
     return scraped_vacancies
-  end
-
-  def self.save_in_db(scraped)
-    scraped.each do |vacancy|
-      Vacancy.new(vacancy).save
-    end
   end
 end
