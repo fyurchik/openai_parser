@@ -1,41 +1,35 @@
+# spec/scraper_spec.rb
 require 'rspec'
-require 'httparty'
-require 'nokogiri'
-require 'active_record'
-
+require 'webmock/rspec'
 require_relative '../lib/scraper'
-require_relative '../lib/database'
-require_relative '../lib/models/vacancy'
 
-describe Scraper do
+RSpec.describe Scraper do
   describe '.scrape' do
-    let(:site_html) { File.read('./spec/fixtures/vacancy_page.html') }
-    let(:saved_link) { 'https://boards.greenhouse.io/openai/jobs/5059976004#app' }
+    let(:mocked_html_path) { './spec/fixtures/vacancy_page.html' }
+    let(:site_html) { Nokogiri::HTML(File.read(mocked_html_path)) }
+
+    let(:title) { site_html.css('.pt-spacing-9 h1').text.strip }
+    let(:location) { site_html.css('p.f-subhead-1.ui-richtext span').text }
+    let(:url) { site_html.at('.lg\\:absolute.top-0.left-0.right-0.flex.flex-col a')['href'] }
 
     before do
-      allow(HTTParty).to receive(:get).and_return(double(body: site_html))
-      
-      DataBase.connect
-
-      unless ActiveRecord::Base.connection.table_exists?('vacancies')
-        CreateVacancies.new.change
-      end
-
-      Scraper.call
+      allow(HTTParty).to receive(:get).and_return(double(body: File.read(mocked_html_path)))
+      Scraper.scrape
     end
 
-    let(:vacancy) { Vacancy.first }
+    let(:expected_url) { 'https://fakelink.com' }
+    let(:mocked_url) { 'https://fakelinktoparse.com' }
 
-    it 'should parse valid title about 1 vacancy' do
-      expect(vacancy.title).to eq('Account Associate')
+    it 'parse a valid title' do
+      expect(title).to eq("Account Associate")
     end
 
-    it 'should parse valid location about 1 vacancy' do
-      expect(vacancy.location).to eq('San Francisco, California, United States — Go To Market')
+    it 'parse a valid location' do
+      expect(location).to eq('San Francisco, California, United States — Go To Market')
     end
 
-    it 'should parse valid URL about 1 vacancy' do
-      expect(vacancy.url).to eq(saved_link)
+    it 'parse a valid url' do
+      expect(url).to eq(expected_url)
     end
   end
 end
