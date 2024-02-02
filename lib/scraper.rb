@@ -5,6 +5,9 @@ require_relative 'database'
 require_relative 'vacancy_database_handler'
 
 class Scraper
+  BASE_URL='https://openai.com'
+  START_URL='https://openai.com/careers/search'
+
   def self.call
     DataBase.connect
 
@@ -21,7 +24,7 @@ class Scraper
   private
 
   def self.scrape
-    start_url = URLS::START_URL
+    start_url = START_URL
     response = HTTParty.get(start_url)
     doc = Nokogiri::HTML(response.body)
 
@@ -31,7 +34,7 @@ class Scraper
     scraped_vacancies = []
 
     all_hrefs.each do |href|
-      new_url = URLS::BASE_URL + href
+      new_url = BASE_URL + href
       response = HTTParty.get(new_url)
       doc = Nokogiri::HTML(response.body)
 

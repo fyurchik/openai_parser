@@ -11,7 +11,6 @@ class CreateVacancies < ActiveRecord::Migration[5.2]
       t.string :url
       t.string :location
 
-      
       t.timestamps
     end
   end
