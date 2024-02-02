@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/scraper_spec.rb
 require 'rspec'
 require 'webmock/rspec'
@@ -22,7 +24,7 @@ RSpec.describe Scraper do
     let(:mocked_url) { 'https://fakelinktoparse.com' }
 
     it 'parse a valid title' do
-      expect(title).to eq("Account Associate")
+      expect(title).to eq('Account Associate')
     end
 
     it 'parse a valid location' do

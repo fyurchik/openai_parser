@@ -1,33 +1,35 @@
+# frozen_string_literal: true
+
 require 'httparty'
 require 'nokogiri'
 require_relative 'database'
 require_relative 'vacancy_database_handler'
 
 class Scraper
-  BASE_URL='https://openai.com'
-  START_URL='https://openai.com/careers/search'
+  BASE_URL = 'https://openai.com'
+  START_URL = 'https://openai.com/careers/search'
 
   def call
     DataBase.connect
 
-    unless ActiveRecord::Base.connection.table_exists?('vacancies')
-      CreateVacancies.new.change
-    end
+    CreateVacancies.new.change unless ActiveRecord::Base.connection.table_exists?('vacancies')
 
     scraped_data = scrape
-    
+
     vacancyDbHandler = VacancyDatabaseHandler.new(scraped_data)
     vacancyDbHandler.save_in_db
   end
 
-  private 
+  private
 
   def scrape
     start_url = START_URL
     response = HTTParty.get(start_url)
     doc = Nokogiri::HTML(response.body)
 
-    all_hrefs = doc.css('ul[aria-label="All teams roles"] li a').map { |link| link['href'] if link['href'].include?("careers")}
+    all_hrefs = doc.css('ul[aria-label="All teams roles"] li a').map do |link|
+      link['href'] if link['href'].include?('careers')
+    end
     all_hrefs.compact!
 
     scraped_vacancies = []
@@ -42,9 +44,9 @@ class Scraper
       url = doc.at('.lg\\:absolute.top-0.left-0.right-0.flex.flex-col a')['href']
       description = doc.at('.ui-description.ui-richtext').to_html
 
-      scraped_vacancies << {title: title, location: location,url: url, description: description}
+      scraped_vacancies << { title:, location:, url:, description: }
     end
 
-    return scraped_vacancies
+    scraped_vacancies
   end
 end
