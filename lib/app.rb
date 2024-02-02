@@ -1,3 +1,4 @@
 require_relative 'scraper'
 
-Scraper.call
+instance = Scraper.new
+instance.call

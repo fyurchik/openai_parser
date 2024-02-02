@@ -1,6 +1,5 @@
 require 'httparty'
 require 'nokogiri'
-require_relative '../config'
 require_relative 'database'
 require_relative 'vacancy_database_handler'
 
@@ -8,7 +7,7 @@ class Scraper
   BASE_URL='https://openai.com'
   START_URL='https://openai.com/careers/search'
 
-  def self.call
+  def call
     DataBase.connect
 
     unless ActiveRecord::Base.connection.table_exists?('vacancies')
@@ -21,9 +20,9 @@ class Scraper
     vacancyDbHandler.save_in_db
   end
 
-  private
+  private 
 
-  def self.scrape
+  def scrape
     start_url = START_URL
     response = HTTParty.get(start_url)
     doc = Nokogiri::HTML(response.body)
