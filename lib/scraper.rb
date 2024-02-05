@@ -10,14 +10,9 @@ class Scraper
   START_URL = 'https://openai.com/careers/search'
 
   def call
-    DataBase.connect
-
-    CreateVacancies.new.change unless ActiveRecord::Base.connection.table_exists?('vacancies')
-
+    setup_table
     scraped_data = scrape
-
-    vacancyDbHandler = VacancyDatabaseHandler.new(scraped_data)
-    vacancyDbHandler.save_in_db
+    save_data(scraped_data)
   end
 
   private
@@ -48,5 +43,15 @@ class Scraper
     end
 
     scraped_vacancies
+  end
+
+  def setup_table
+    DataBase.connect
+    CreateVacancies.new.change unless ActiveRecord::Base.connection.table_exists?('vacancies')
+  end
+
+  def save_data(data)
+    vacancyDbHandler = VacancyDatabaseHandler.new(data)
+    vacancyDbHandler.save_in_db
   end
 end

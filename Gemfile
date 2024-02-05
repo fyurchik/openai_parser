@@ -9,5 +9,6 @@ gem 'httparty'
 gem 'nokogiri'
 gem 'dotenv'
 gem 'rspec'
-gem 'rubocop'gem 'webmock'
+gem 'rubocop'
+gem 'webmock'
 
