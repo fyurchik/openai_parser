@@ -4,11 +4,13 @@ require 'active_record'
 require 'dotenv/load'
 
 class DataBase
-  def self.connect
+  def connect
     setup_db_connection
   end
 
-  def self.setup_db_connection
+  private 
+  
+  def setup_db_connection
     ActiveRecord::Base.establish_connection(
       adapter: 'postgresql',
       host: 'localhost',
