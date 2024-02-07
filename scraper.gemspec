@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'scraper'
-  s.version     = '0.1.1'
+  s.version     = '0.1.2'
   s.summary     = 'Scraper Gem'
   s.description = 'A gem for scraping OpenAI vacancies'
   s.authors     = ['Yura Fenyn']
