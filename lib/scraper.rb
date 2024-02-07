@@ -8,13 +8,13 @@ require_relative 'vacancy_database_handler'
 class Scraper
   BASE_URL = 'https://openai.com'
   START_URL = 'https://openai.com/careers/search'
-  
+
   def initialize
     @database = DataBase.new
     @table = CreateVacancies.new
     @vacany_handler = VacancyDatabaseHandler.new
   end
-  
+
   def call
     @database.connect
     @table.setup_table
@@ -46,7 +46,7 @@ class Scraper
       url = doc.at('.lg\\:absolute.top-0.left-0.right-0.flex.flex-col a')['href']
       description = doc.at('.ui-description.ui-richtext').to_html
 
-      scraped_vacancies << { title: title, location: location, url: url, description: description }
+      scraped_vacancies << { title:, location:, url:, description: }
     end
 
     scraped_vacancies

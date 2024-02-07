@@ -9,7 +9,7 @@ class CreateVacancies < ActiveRecord::Migration[5.2]
   def setup_table
     change unless ActiveRecord::Base.connection.table_exists?('vacancies')
   end
-  
+
   private
 
   def change

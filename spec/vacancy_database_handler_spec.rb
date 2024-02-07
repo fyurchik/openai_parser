@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 require_relative '../lib/vacancy_database_handler'
 
@@ -35,7 +37,9 @@ RSpec.describe VacancyDatabaseHandler do
 
         allow(Vacancy).to receive(:new).and_return(error_double)
 
-        expect { subject.save_in_db(scraped_data) }.to raise_error(RuntimeError, "Failed to save data: #{error_message}")
+        expect do
+          subject.save_in_db(scraped_data)
+        end.to raise_error(RuntimeError, "Failed to save data: #{error_message}")
       end
     end
   end

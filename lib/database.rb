@@ -8,8 +8,8 @@ class DataBase
     setup_db_connection
   end
 
-  private 
-  
+  private
+
   def setup_db_connection
     ActiveRecord::Base.establish_connection(
       adapter: 'postgresql',
