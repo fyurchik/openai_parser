@@ -4,15 +4,15 @@ require_relative 'scraper'
 require_relative 'database'
 require_relative 'vacancy_database_handler'
 
-class Main
+class MainApp
   def self.run
-    database = DataBase.new
-    table = CreateVacancies.new
-    vacancy_handler = VacancyDatabaseHandler.new
+    DataBase.new.connect
+    CreateVacancies.new.setup_table
 
-    scraper = Scraper.new(database, table, vacancy_handler)
+    scraper = Scraper.new
     scraper.call
+    end 
   end
 end
 
-Main.run
+MainApp.run

@@ -9,16 +9,11 @@ class Scraper
   BASE_URL = 'https://openai.com'
   START_URL = 'https://openai.com/careers/search'
 
-  def initialize(database, table, vacancy_handler)
-    @database = database
-    @table = table
-    @vacancy_handler = vacancy_handler
+  def initialize
+    @vacancy_handler = VacancyDatabaseHandler.new
   end
 
   def call
-    puts "@vacancy_handler: #{@vacancy_handler.inspect}"
-    @database.connect
-    @table.setup_table
     @vacancy_handler.save_in_db(scrape)
   end
 
