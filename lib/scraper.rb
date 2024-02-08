@@ -18,15 +18,13 @@ class Scraper
   def call
     @database.connect
     @table.setup_table
-    scraped_data = scrape
-    @vacany_handler.save_in_db(scraped_data)
+    @vacany_handler.save_in_db(scrape)
   end
 
   private
 
   def scrape
-    start_url = START_URL
-    response = HTTParty.get(start_url)
+    response = HTTParty.get(START_URL)
     doc = Nokogiri::HTML(response.body)
 
     all_hrefs = doc.css('ul[aria-label="All teams roles"] li a').map do |link|
