@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require_relative '../lib/vacancy_database_handler'
+require_relative '../lib/scraper/vacancy_database_handler'
 
 RSpec.describe VacancyDatabaseHandler do
   describe '#save_in_db' do

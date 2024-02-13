@@ -2,12 +2,12 @@
 
 Gem::Specification.new do |s|
   s.name        = 'scraper'
-  s.version     = '0.1.2'
+  s.version     = '0.1.5'
   s.summary     = 'Scraper Gem'
   s.description = 'A gem for scraping OpenAI vacancies'
   s.authors     = ['Yura Fenyn']
   s.email       = 'jyrafenun@gmail.com'
-  s.files       = Dir.glob('lib/**/*.rb')
+  s.files       = Dir.glob('lib/**/**/*')
   s.homepage    = 'https://rubygems.org/gems/hola'
   s.license     = 'MIT'
   s.require_path = 'lib'

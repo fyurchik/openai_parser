@@ -3,7 +3,7 @@
 # spec/scraper_spec.rb
 require 'rspec'
 require 'webmock/rspec'
-require_relative '../lib/scraper'
+require_relative '../lib/scraper/scraper_logic'
 
 RSpec.describe Scraper do
   describe '#scrape' do
