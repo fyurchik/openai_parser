@@ -66,11 +66,8 @@ OpenAI Scraper is a Ruby gem designed to scrape OpenAI vacancies and store them 
    ```ruby
    require 'scraper'
 
-   # Create instance
-   instance = Scraper.new
-
-   # Run the scraper
-   instance.call
+   # Run the scraper app by:
+   MainApp.run
    ```
 
 4. **Execute the script:**
@@ -90,7 +87,5 @@ OpenAI Scraper is a Ruby gem designed to scrape OpenAI vacancies and store them 
    ```bash
    irb(main):001:0> require "scraper"
    => true
-   irb(main):002:0> instanse = Scraper.new
-   => #<Scraper:0x00007f58013dce98>
-   irb(main):003:0> instanse.call
+   irb(main):002:0> MainApp.run
    ```
