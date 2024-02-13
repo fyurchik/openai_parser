@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../lib/models/vacancy'
+require_relative 'models/vacancy'
 
 class VacancyDatabaseHandler
   def save_in_db(data)
